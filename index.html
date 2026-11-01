@@ -188,6 +188,7 @@ function startStage(stage){
   game.enemiesLeft = game.queue.length;
   game.baseAlive = true;
   game.spawnTimer = 30;
+  game.state = 'playing';
 }
 
 function startGame(){
@@ -520,11 +521,10 @@ function loop(){
       updateBullets();
       updatePowerups();
       if(player.dead && player.respawnTimer>0){ player.respawnTimer--; if(player.respawnTimer===0) respawnPlayer(); }
-      if(!game.baseAlive){ /* 已在 gameOver 处理 */ }
-      if(game.state==='stageclear' && frame>game.messageUntil){ startStage(game.stage); }
+    } else if(game.state==='stageclear' && frame>game.messageUntil){
+      startStage(game.stage);
     }
     updateParticles();
-    if(game.state==='menu' || game.state==='playing' || game.state==='paused') {}
   }
   render();
   requestAnimationFrame(loop);
