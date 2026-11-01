@@ -154,7 +154,7 @@ function tankBlocked(nx,ny,w,h,self){
 function makePlayer(){
   return {
     type:'player', dir:0, x:6*TILE+(TILE-TANK)/2, y:12*TILE+(TILE-TANK)/2,
-    w:TANK, h:TANK, speed:2.2, power:1, dead:false,
+    w:TANK, h:TANK, speed:2.2, power:1, color:'#ffd76a', dead:false,
     fireCooldown:0, shieldUntil:0, respawnTimer:0,
   };
 }
@@ -338,7 +338,7 @@ function killEnemy(e){
     powerups.push({kind:k, x:c*TILE+8, y:r*TILE+8, w:16, h:16, dead:false, blink:0});
   }
   updateHud();
-  if(game.queue.length===0 && enemies.length===0 && game.enemiesLeft===0){
+  if(game.queue.length===0 && game.enemiesLeft===0){
     stageClear();
   }
 }
@@ -532,7 +532,9 @@ function loop(){
 
 /* ============================= 启动 ============================= */
 resetGlobal();
-game = { state:'menu' };
+game = { state:'menu', score:0, lives:3, stage:0, queue:[], enemiesLeft:0, baseAlive:true, spawnTimer:0 };
+startStage(0);
+game.state = 'menu';
 requestAnimationFrame(loop);
 </script>
 </body>
